@@ -1103,7 +1103,24 @@ if ($action == "new") {
     }
 } else {
     $_language->readModule('news');
+	
+	/*news pages switch*/
+	if(isset($_GET['page'])) $page=(int)$_GET['page'];
+	else $page = 1;
+	$all= 
+	safe_query
+	("SELECT newsID 
+		FROM 
+	" . PREFIX . "news 
+		WHERE published='1' 
+	AND intern<=" .isclanmember($userID));
+	$gesamt=mysqli_num_rows($all);
+	$pages=1;
 
+	$max = empty($maxshownnews) ? 20 : $maxshownnews;
+	$pages = ceil($gesamt/$max);
+	/*news pages switch ende */
+	
     $title_news = $GLOBALS["_template"]->replaceTemplate("title_news", array());
     echo $title_news;
 
@@ -1147,19 +1164,42 @@ if ($action == "new") {
         $showonly = '';
     }
 
-    $result =
-        safe_query(
-            "SELECT
-                *
-            FROM
-                " . PREFIX . "news
-            WHERE
-                published='1' AND
-                intern<=" . (int)isclanmember($userID) . " " . $showonly . "
-            ORDER BY
-                date DESC
-            LIMIT 0," . (int)$maxshownnews
-        );
+	/*news pages switch*/
+	if($pages>1) $page_link = makepagelink("index.php?site=news", $page, $pages);
+	else $page_link='';
+
+	if($page == "1") {
+	/*news pages switch ende*/
+	$result=
+		safe_query(
+	"SELECT
+		 * 
+	FROM 
+		" . PREFIX . "news
+	WHERE
+		published='1' AND
+		intern<=" . isclanmember($userID) . " " .$showonly. "
+	ORDER BY 
+		date DESC 
+	LIMIT 0,".$maxshownnews);
+	$n=$gesamt;
+	}
+	else {
+		$start=$page*$max-$max;
+		$result = 
+			safe_query(
+		"SELECT
+			 *
+		FROM 
+			" . PREFIX . "news 
+		WHERE 
+			published='1' AND
+			intern<=" . isclanmember($userID) . " 
+		ORDER BY 
+			date DESC
+		LIMIT ".$start.",".$maxshownnews);
+		$n = ($gesamt)-$page*$max+$max;
+	}
 
     $i = 1;
     while ($ds = mysqli_fetch_array($result)) {
@@ -1299,6 +1339,9 @@ if ($action == "new") {
             $comments = '';
         }
 
+		if($ds['rating']) $ratingpic='<img src="images/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
+			else $ratingpic='<img src="images/rating0.png" width="80" height="16" alt="" />';
+			
         $tags = \webspell\Tags::getTagsLinked('news', $ds[ 'newsID' ]);
 
         $adminaction = '';
@@ -1322,6 +1365,7 @@ if ($action == "new") {
         $data_array['$headline'] = $headline;
         $data_array['$rubrikname'] = $rubrikname;
         $data_array['$rubricpic'] = $rubricpic;
+		$data_array['$ratingpic'] = $ratingpic;
         $data_array['$isintern'] = $isintern;
         $data_array['$content'] = $content;
         $data_array['$adminaction'] = $adminaction;
@@ -1339,3 +1383,5 @@ if ($action == "new") {
         unset($ds);
     }
 }
+	if($pages>1) echo '
+    	'.$page_link.'';

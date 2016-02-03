@@ -29,6 +29,7 @@ $language_array = array(
 
 /* do not edit above this line */
 
+    'already_rated' => '<b>News already rated!</b>',
     'author' => 'Author',
     'bbcode' => 'BBCode is <b><span class="underline">ON</span></b>',
     'cancel' => 'cancel',
@@ -48,6 +49,7 @@ $language_array = array(
     'languages' => 'Languages',
     'link' => 'Link',
     'links' => 'Links',
+	'login_for_rate' => '<b>You have to be registered and logged in to rate an news!</b>',
     'new_post' => 'New post',
     'new_window' => 'new window',
     'news' => 'News',
@@ -63,6 +65,11 @@ $language_array = array(
     'preview' => 'preview',
     'publish_now' => 'publish now',
     'publish_selected' => 'publish selected',
+    'perfect' => 'perfect',
+    'poor' => 'poor',
+    'rate' => 'Rate',
+    'rate_with' => 'Rate with 0-10 points',
+    'rating' => 'Rating',
     'really_delete' => 'really delete this news?',
     'rubric' => 'Rubric',
     'save_news' => 'save news',

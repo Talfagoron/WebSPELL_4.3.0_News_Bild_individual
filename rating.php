@@ -54,6 +54,9 @@ if ($type == "ar") {
 } elseif ($type == "ga") {
     $table = "gallery_pictures";
     $key = "picID";
+} elseif ($type == "ne") {
+    $table = "news";
+    $key = "newsID";
 }
 
 if (isset($table) && isset($key)) {
@@ -105,7 +108,7 @@ if (isset($table) && isset($key)) {
         }
     }
 
-    switch ($table) {
+    switch($table) {
         case "gallery_pictures":
             $table = "gallery&picID=" . $id;
             break;

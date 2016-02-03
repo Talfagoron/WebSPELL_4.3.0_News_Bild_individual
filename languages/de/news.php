@@ -29,6 +29,7 @@ $language_array = array(
 
 /* do not edit above this line */
 
+    'already_rated' => '<b>Diese Neuigkeit wurde bereits bewertet</b>',
     'author' => 'Autor',
     'bbcode' => 'BBCode ist <b><span class="underline">AN</span></b>',
     'cancel' => 'Abbrechen',
@@ -48,6 +49,7 @@ $language_array = array(
     'languages' => 'Sprachen',
     'link' => 'Link',
     'links' => 'Links',
+	'login_for_rate' => '<b>Zum Bewerten musst du registriert und angemeldet sein!</b>',
     'new_post' => 'Neue Neuigkeit',
     'new_window' => 'neues Fenster',
     'news' => 'Neuigkeiten',
@@ -63,6 +65,11 @@ $language_array = array(
     'preview' => 'Vorschau',
     'publish_now' => 'Jetzt veröffentlichen',
     'publish_selected' => 'Markierte veröffentlichen',
+    'perfect' => 'perfekt',
+    'poor' => 'mies',
+    'rate' => 'Bewerten',
+    'rate_with' => 'Bewerte mit 0-10 Punkten',
+    'rating' => 'Bewertung',
     'really_delete' => 'Diese Neuigkeit wirklich löschen?',
     'rubric' => 'Rubrik',
     'save_news' => 'Neuigkeit speichern',
