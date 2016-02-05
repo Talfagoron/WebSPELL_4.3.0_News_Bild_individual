@@ -188,8 +188,8 @@ if (isset($newsID)) {
             $adminaction = '';
         }
 
-		if($ds['rating']) $ratingpic='<img src="images/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
-			else $ratingpic='<img src="images/rating0.png" width="80" height="16" alt="" />';
+		if($ds['rating']) $ratingpic='<img src="images/ratingpics/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
+			else $ratingpic='<img src="images/ratingpics/rating0.png" width="80" height="16" alt="" />';
 			
         if ($loggedin) {
             $getnews = safe_query("SELECT news FROM " . PREFIX . "user WHERE userID='$userID'");

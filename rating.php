@@ -58,7 +58,7 @@ if ($type == "ar") {
     $table = "news";
     $key = "newsID";
 }
-
+	
 if (isset($table) && isset($key)) {
     $getarticles = safe_query(
         "SELECT
@@ -81,6 +81,7 @@ if (isset($table) && isset($key)) {
                 $go = true;
             }
         }
+		
         // Only vote, if isn't voted
         if ($go === true) {
             safe_query(
@@ -92,8 +93,9 @@ if (isset($table) && isset($key)) {
                 WHERE
                 " . $key . " = '" . (int)$id."'"
             );
+				
             $ergebnis = safe_query(
-                "SELECT votes, points FROM " . PREFIX . $table . " WHERE " . $key . " = '" . (int)$id-"'"
+                "SELECT votes, points FROM " . PREFIX . $table . " WHERE " . $key . " = '" . (int)$id."'"
             );
             $ds = mysqli_fetch_array($ergebnis);
             $rate = round($ds[ 'points' ] / $ds[ 'votes' ]);
@@ -121,9 +123,10 @@ if (isset($table) && isset($key)) {
         case "files":
             $table = "files&file=" . $id;
             break;
+		case "news":
+            $table = "news_comments&newsID=" . $id;
+            break;
     }
 
     header("Location: index.php?site=" . $table);
-} else {
-    header("Location: index.php");
 }

@@ -1113,7 +1113,7 @@ if ($action == "new") {
 		FROM 
 	" . PREFIX . "news 
 		WHERE published='1' 
-	AND intern<=" .isclanmember($userID));
+	AND intern<=" .(int)isclanmember($userID));
 	$gesamt=mysqli_num_rows($all);
 	$pages=1;
 
@@ -1149,6 +1149,7 @@ if ($action == "new") {
         $_language->module[ 'news_archive' ] . '</a><hr>';
 
     if (isset($_GET[ 'show' ])) {
+		
         $result = safe_query(
             "SELECT
                 rubricID
@@ -1178,7 +1179,7 @@ if ($action == "new") {
 		" . PREFIX . "news
 	WHERE
 		published='1' AND
-		intern<=" . isclanmember($userID) . " " .$showonly. "
+		intern<=" .(int) isclanmember($userID) . " " .$showonly. "
 	ORDER BY 
 		date DESC 
 	LIMIT 0,".$maxshownnews);
@@ -1194,13 +1195,12 @@ if ($action == "new") {
 			" . PREFIX . "news 
 		WHERE 
 			published='1' AND
-			intern<=" . isclanmember($userID) . " 
+			intern<=" .(int) isclanmember($userID) . " 
 		ORDER BY 
 			date DESC
 		LIMIT ".$start.",".$maxshownnews);
 		$n = ($gesamt)-$page*$max+$max;
 	}
-
     $i = 1;
     while ($ds = mysqli_fetch_array($result)) {
         if ($i % 2) {
@@ -1339,8 +1339,8 @@ if ($action == "new") {
             $comments = '';
         }
 
-		if($ds['rating']) $ratingpic='<img src="images/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
-			else $ratingpic='<img src="images/rating0.png" width="80" height="16" alt="" />';
+		if($ds['rating']) $ratingpic='<img src="images/ratingpics/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
+			else $ratingpic='<img src="images/ratingpics/rating0.png" width="80" height="16" alt="" />';
 			
         $tags = \webspell\Tags::getTagsLinked('news', $ds[ 'newsID' ]);
 
@@ -1366,6 +1366,8 @@ if ($action == "new") {
         $data_array['$rubrikname'] = $rubrikname;
         $data_array['$rubricpic'] = $rubricpic;
 		$data_array['$ratingpic'] = $ratingpic;
+		$data_array['$related'] = $related;
+		$data_array['$tags'] = $tags;
         $data_array['$isintern'] = $isintern;
         $data_array['$content'] = $content;
         $data_array['$adminaction'] = $adminaction;
