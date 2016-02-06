@@ -1339,6 +1339,8 @@ if ($action == "new") {
             $comments = '';
         }
 
+		$viewed = $ds[ 'viewed' ];
+		
 		if($ds['rating']) $ratingpic='<img src="images/ratingpics/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
 			else $ratingpic='<img src="images/ratingpics/rating0.png" width="80" height="16" alt="" />';
 			
@@ -1367,6 +1369,7 @@ if ($action == "new") {
         $data_array['$rubricpic'] = $rubricpic;
 		$data_array['$ratingpic'] = $ratingpic;
 		$data_array['$related'] = $related;
+		$data_array['$viewed'] = $viewed;
 		$data_array['$tags'] = $tags;
         $data_array['$isintern'] = $isintern;
         $data_array['$content'] = $content;

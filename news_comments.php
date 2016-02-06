@@ -57,6 +57,7 @@ echo $post .
 
 if (isset($newsID)) {
     $result = safe_query("SELECT * FROM " . PREFIX . "news WHERE `newsID` = '" . (int)$newsID."'");
+			  safe_query("UPDATE `" . PREFIX . "news` SET `viewed`=viewed+1 WHERE `newsID` = '" . (int)$newsID. "'");
     $ds = mysqli_fetch_array($result);
 
     if (
@@ -136,7 +137,9 @@ if (isset($newsID)) {
         $content = toggle($content, $ds[ 'newsID' ]);
         $headline = clearfromtags($headline);
         $comments = '';
-
+		
+		$viewed = $ds[ 'viewed' ];
+		
         $poster = '<a href="index.php?site=profile&amp;id=' . $ds[ 'poster' ] . '">
             <strong>' . getnickname($ds[ 'poster' ]) . '</strong>
         </a>';
@@ -188,6 +191,23 @@ if (isset($newsID)) {
             $adminaction = '';
         }
 
+
+		$query1=safe_query("SELECT * FROM ".PREFIX."user");
+		$qry1=mysqli_fetch_array($query1);
+		if($qry1['username'] || $qry1['nickname']){			
+			if($qry1['userpic'] == '');
+			else $userpic='<img src="images/userpics/' . getuserpic($ds[ 'poster' ]) . '" width="90" height="70" />';
+		}				
+		else $userpic='<img src="images/userpics/nouserpic.gif" width="90" height="70" class="hidden" />'; //in $userpic=''; ändern falls keins angezeigt werden soll.
+		
+		$query1=safe_query("SELECT * FROM ".PREFIX."user");
+		$qry1=mysqli_fetch_array($query1);
+		if($qry1['username'] || $qry1['nickname']){			
+			if($qry1['avatar'] == '');
+			else $avatar='<img src="images/avatars/' . getavatar($ds[ 'poster' ]) . '" width="70" height="70" />';
+		}				
+		else $avatar='<img src="images/avatars/noavatar.gif" width="70" height="70" class="hidden" />'; //in $userpic=''; ändern falls keins angezeigt werden soll.
+				
 		if($ds['rating']) $ratingpic='<img src="images/ratingpics/rating' . $ds['rating'] . '.png" width="80" height="16" alt="" />';
 			else $ratingpic='<img src="images/ratingpics/rating0.png" width="80" height="16" alt="" />';
 			
@@ -251,6 +271,9 @@ if (isset($newsID)) {
 		$data_array['$rateform'] = $rateform;
 		$data_array['$ratingpic'] = $ratingpic;
 		$data_array['$related'] = $related;
+		$data_array['$userpic'] = $userpic;
+		$data_array['$avatar'] = $avatar;
+		$data_array['$viewed'] = $viewed;
 		$data_array['$tags'] = $tags;
         $data_array['$isintern'] = $isintern;
         $data_array['$content'] = $content;

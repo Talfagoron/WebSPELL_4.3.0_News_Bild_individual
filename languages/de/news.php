@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
 ##########################################################################
 #                                                                        #
@@ -49,7 +49,7 @@ $language_array = array(
     'languages' => 'Sprachen',
     'link' => 'Link',
     'links' => 'Links',
-	'login_for_rate' => '<b>Zum Bewerten musst du registriert und angemeldet sein!</b>',
+    'login_for_rate' => '<b>Zum Bewerten musst du registriert und angemeldet sein!</b>',
     'new_post' => 'Neue Neuigkeit',
     'new_window' => 'neues Fenster',
     'news' => 'Neuigkeiten',

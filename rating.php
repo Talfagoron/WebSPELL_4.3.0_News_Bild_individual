@@ -123,7 +123,7 @@ if (isset($table) && isset($key)) {
         case "files":
             $table = "files&file=" . $id;
             break;
-		case "news":
+	case "news":
             $table = "news_comments&newsID=" . $id;
             break;
     }

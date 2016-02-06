@@ -90,7 +90,8 @@ mysql_query("ALTER TABLE `".PREFIX."news`
      	
   ADD `votes` int(11) NOT NULL default '0',
   ADD `points` int(11) NOT NULL default '0',
-  ADD `rating` int(11) NOT NULL default '0'
+  ADD `rating` int(11) NOT NULL default '0',
+  ADD `viewed` int(11) NOT NULL default '0'
   
 ");
 
